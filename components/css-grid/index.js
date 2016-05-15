@@ -43,6 +43,17 @@ class CSSGrid extends HTMLElement {
                     width: calc( 100% - 10px );
                     border: 5px dashed green;
                 }
+                
+                section {
+                    min-width: 20px;
+                    min-height: 20px;
+                    background: red;
+                }
+                h1 {
+                    min-width: 20px;
+                    min-height: 20px;
+                    background: blue;
+                }
             </style>
         `;
     }
@@ -73,8 +84,10 @@ class CSSGrid extends HTMLElement {
     }
     
     addNewElement (newEl, target) {
-        var element = document.createElement(newEl);
-        target.parentNode.insertBefore(element, target);
+        var container = document.createElement('row-adder');
+        
+        container.setAttribute('element', newEl);
+        target.parentNode.insertBefore(container, target);
     }
 }
 
