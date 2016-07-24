@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/prateekjadhwani/css-grid.git"
+    "url": "https://github.com/Pancake-CMS/css-grid.git"
   },
   "author": "Prateek Jadhwani <prateekjadhwani@users.noreply.github.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/prateekjadhwani/css-grid/issues"
+    "url": "https://github.com/Pancake-CMS/css-grid/issues"
   },
-  "homepage": "https://github.com/prateekjadhwani/css-grid",
+  "homepage": "https://github.com/Pancake-CMS/css-grid",
   "devDependencies": {
     "babel-core": "^6.8.0",
     "babel-loader": "^6.2.4",
