@@ -1,0 +1,141 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../row-adder/row-adder.html">
+
+<dom-module id="css-grid">
+    <template>
+        <style type="text/css">
+            :host {
+                background: transparent;
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            .operation-area {
+                display: block;
+                width: calc( 100% - 2px );
+                border: 1px dashed gray;
+                height: 50px;
+                display: block;
+                text-align: center;
+                color: gray;
+            }
+
+            .showDropArea {
+                width: calc( 100% - 4px );
+                border: 2px dashed green;
+            }
+
+            .editMode--true row-adder{
+                border: 1px solid rgba(0, 0, 0, 0.1);
+            }
+        </style>
+
+        <div class$="display-area editMode--[[inEditMode]]">
+            <template is="dom-repeat" items="[[components]]">
+                <row-adder
+                    el-name$="[[item.elName]]"
+                    class$="grid-column-start-[[item.gridColumnStart]] grid-column-end-[[item.gridColumnEnd]]"
+                    in-edit-mode$="[[inEditMode]]"></row-adder>
+            </template>
+        </div>
+
+        <!-- The area where various component operations like drag and drop happen -->
+        <div class="operation-area">[[addComponentsText]]</div>
+    </template>
+    <script type="text/javascript">
+        Polymer({
+            is: 'css-grid',
+
+            properties: {
+
+                /*
+                 * The list of elements
+                 */
+                components: {
+                    type: Array,
+                    value: [],
+                    reflectToAttribute: true,
+                    notify: true
+                },
+
+                /*
+                 * This attribute will decide whether to allow editing or not
+                 */
+                inEditMode: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                addComponentsText:  {
+                    type: String,
+                    value: 'Add Your Components Here',
+                    notify: true,
+                    reflectToAttribute: true
+                },
+
+                /*
+                 * path contains the actual path of the template where the components are to be added
+                 */
+                path: {
+                    type: String,
+                    value: '/',
+                    reflectToAttribute: true,
+                    notify: true
+                },
+
+                maxRow: {
+                    type: Number,
+                    value: 0,
+                    notify: true
+                }
+            },
+
+            ready: function() {
+                this.addDragEvents();
+            },
+
+            addDragEvents: function () {
+                var dragEl = this.$$('.operation-area');
+
+                dragEl.addEventListener('drop', (e) => {
+                    var elName = e.dataTransfer.getData('text');
+                    dragEl.classList.remove('showDropArea');
+                    this.addNewElement(elName);
+
+                    this.fire('template-operation', {
+                        operation: 'add',
+                        path: this.path,
+                        name: elName
+                    });
+                });
+
+                dragEl.addEventListener('dragenter', (e) => {
+                    dragEl.classList.add('showDropArea');
+                    e.preventDefault();
+                });
+
+                dragEl.addEventListener('dragleave', (e) => {
+                    dragEl.classList.remove('showDropArea');
+                });
+
+                dragEl.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+            },
+
+            addNewElement: function(elName) {
+                var elComponent = {
+                        'elName': elName,
+                        'gridColumnStart': 1,
+                        'gridColumnEnd' : 1,
+                        // 'grid-row-start' : this.maxRow + 1,
+                        // 'grid-row-end' : this.maxRow + 1
+                    };
+
+                this.push('components', elComponent);
+            }
+        });
+    </script>
+</dom-module>
