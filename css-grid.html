@@ -10,6 +10,9 @@
                 height: auto;
                 display: block;
             }
+            .display-area {
+                display: grid;
+            }
 
             .operation-area {
                 display: block;
@@ -35,7 +38,6 @@
             <template is="dom-repeat" items="[[components]]">
                 <row-adder
                     el-name$="[[item.elName]]"
-                    class$="grid-column-start-[[item.gridColumnStart]] grid-column-end-[[item.gridColumnEnd]]"
                     component-properties$="[[item.componentProperties]]"
                     in-edit-mode$="[[inEditMode]]"></row-adder>
             </template>
@@ -130,10 +132,6 @@
             addNewElement: function(data) {
                 var elComponent = {
                         'elName': data.name,
-                        'gridColumnStart': 1,
-                        'gridColumnEnd' : 1,
-                        // 'grid-row-start' : this.maxRow + 1,
-                        // 'grid-row-end' : this.maxRow + 1,
                         componentProperties: data.properties
                     };
 
