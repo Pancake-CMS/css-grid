@@ -39,6 +39,7 @@
                 <row-adder
                     el-name$="[[item.elName]]"
                     component-properties$="[[item.componentProperties]]"
+                    path$="[[path]]"
                     in-edit-mode$="[[inEditMode]]"></row-adder>
             </template>
         </div>
@@ -83,7 +84,7 @@
                  */
                 path: {
                     type: String,
-                    value: '/',
+                    value: '',
                     reflectToAttribute: true,
                     notify: true
                 }
