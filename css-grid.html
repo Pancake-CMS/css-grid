@@ -40,6 +40,7 @@
                     el-name$="[[item.elName]]"
                     component-properties$="[[item.componentProperties]]"
                     path$="[[path]]"
+                    id$="[[item.id]]"
                     in-edit-mode$="[[inEditMode]]"></row-adder>
             </template>
         </div>
@@ -98,15 +99,20 @@
                 var dragEl = this.$$('.operation-area');
 
                 dragEl.addEventListener('drop', (e) => {
-                    var data = JSON.parse(e.dataTransfer.getData('text'));
+                    var data = JSON.parse(e.dataTransfer.getData('text')),
+                        id = null;
 
                     dragEl.classList.remove('showDropArea');
-                    this.addNewElement(JSON.parse(data));
+                    id = this.addNewElement(JSON.parse(data));
 
-                    this.fire('template-operation', {
-                        operation: 'add',
-                        path: this.path,
-                        data: data
+                    this.fire('iron-signal', {
+                        name: 'template-operation',
+                        data: {
+                            operation: 'add',
+                            path: this.path,
+                            data: data,
+                            id: id
+                        }
                     });
                 });
 
@@ -130,7 +136,21 @@
                         componentProperties: data.properties
                     };
 
+                elComponent.id = this.getUniqueElementId(data.name);
                 this.push('components', elComponent);
+
+                return elComponent.id;
+            },
+
+            getUniqueElementId: function(name) {
+                var totalEl = 0;
+                for(var i=0; i < this.components.length; i++) {
+                    if(this.components[i].elName == name) {
+                        totalEl++;
+                    }
+                }
+
+                return name + '-' + totalEl;
             }
         });
     </script>
