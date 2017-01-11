@@ -54,6 +54,12 @@
 
             properties: {
 
+                rawcomponents: {
+                    type: Object,
+                    reflectToAttribute: true,
+                    notify: true
+                },
+
                 /*
                  * The list of elements
                  */
@@ -61,7 +67,8 @@
                     type: Array,
                     value: [],
                     reflectToAttribute: true,
-                    notify: true
+                    notify: true,
+                    computed: '_computeFromRawComponents(rawcomponents)'
                 },
 
                 /*
@@ -93,6 +100,7 @@
 
             ready: function() {
                 this.addDragEvents();
+                //this.computeRawComponents();
             },
 
             addDragEvents: function () {
@@ -151,6 +159,21 @@
                 }
 
                 return name + '-' + totalEl;
+            },
+
+            _computeFromRawComponents: function(rawcomponents) {
+                if(!!rawcomponents) {
+                    var data = [],
+                        i = 0;
+                    for(var keys in rawcomponents) {
+                        rawcomponents[keys].id = keys;
+                        data.push(rawcomponents[keys]);
+                    }
+
+                    return data;
+                }
+
+                return [];
             }
         });
     </script>
