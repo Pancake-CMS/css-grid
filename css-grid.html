@@ -141,10 +141,9 @@
             addNewElement: function(data) {
                 var elComponent = {
                         'elName': data.name,
-                        componentProperties: data.properties
+                        componentProperties: data.properties,
+                        id: this.getUniqueElementId(data.name)
                     };
-
-                elComponent.id = this.getUniqueElementId(data.name);
                 this.push('components', elComponent);
 
                 return elComponent.id;
@@ -167,6 +166,8 @@
                         i = 0;
                     for(var keys in rawcomponents) {
                         rawcomponents[keys].id = keys;
+                        rawcomponents[keys].elName = rawcomponents[keys].name;
+                        rawcomponents[keys].componentProperties = rawcomponents[keys].properties;
                         data.push(rawcomponents[keys]);
                     }
 
