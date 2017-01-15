@@ -32,6 +32,9 @@
             .editMode--true row-adder{
                 border: 1px solid rgba(0, 0, 0, 0.1);
             }
+            .operation-area--in-edit-mode-false {
+                display: none;
+            }
         </style>
 
         <div class$="display-area editMode--[[inEditMode]]">
@@ -46,7 +49,8 @@
         </div>
 
         <!-- The area where various component operations like drag and drop happen -->
-        <div class="operation-area">[[addComponentsText]]</div>
+        <div class$="operation-area operation-area--in-edit-mode-[[inEditMode]]">[[addComponentsText]]</div>
+
     </template>
     <script type="text/javascript">
         Polymer({
@@ -56,7 +60,7 @@
 
                 rawcomponents: {
                     type: Object,
-                    reflectToAttribute: true,
+                    reflectToAttribute: false,
                     notify: true
                 },
 
@@ -66,7 +70,7 @@
                 components: {
                     type: Array,
                     value: [],
-                    reflectToAttribute: true,
+                    reflectToAttribute: false,
                     notify: true,
                     computed: '_computeFromRawComponents(rawcomponents)'
                 },
@@ -99,7 +103,9 @@
             },
 
             ready: function() {
-                this.addDragEvents();
+                if(this.inEditMode) {
+                    this.addDragEvents();
+                }
                 //this.computeRawComponents();
             },
 
