@@ -11,3 +11,4 @@ A web component that is used to provide a grid container for other web component
 |------|-------------|------|---------------|
 | path | The node path where the components are to be added | String | `\registration-card\user-name` |
 | inEditMode | This will device whether it needs to show edit options or not | Boolean | `true` or `false` |
+| inContentMode | This will device whether it needs to show content editor or not | Boolean | `true` or `false` |

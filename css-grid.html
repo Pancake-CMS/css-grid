@@ -44,6 +44,7 @@
                     component-properties$="[[item.componentProperties]]"
                     path$="[[path]]"
                     id$="[[item.id]]"
+                    in-content-mode$="[[inContentMode]]"
                     in-edit-mode$="[[inEditMode]]"></row-adder>
             </template>
         </div>
@@ -79,6 +80,15 @@
                  * This attribute will decide whether to allow editing or not
                  */
                 inEditMode: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true
+                },
+
+                /*
+                 * This attribute will decide whether to allow content editing or not
+                 */
+                inContentMode: {
                     type: Boolean,
                     value: false,
                     reflectToAttribute: true
