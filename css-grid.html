@@ -44,6 +44,7 @@
                     component-properties$="[[item.componentProperties]]"
                     path$="[[path]]"
                     id$="[[item.id]]"
+                    innercomponents$="[[item.innercomponents]]"
                     in-content-mode$="[[inContentMode]]"
                     in-edit-mode$="[[inEditMode]]"></row-adder>
             </template>
@@ -116,7 +117,6 @@
                 if(this.inEditMode) {
                     this.addDragEvents();
                 }
-                //this.computeRawComponents();
             },
 
             addDragEvents: function () {
@@ -184,6 +184,7 @@
                         rawcomponents[keys].id = keys;
                         rawcomponents[keys].elName = rawcomponents[keys].name;
                         rawcomponents[keys].componentProperties = rawcomponents[keys].properties;
+                        rawcomponents[keys].innercomponents = rawcomponents[keys].components || {};
                         data.push(rawcomponents[keys]);
                     }
 
