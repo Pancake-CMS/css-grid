@@ -44,6 +44,7 @@
                     component-properties$="[[item.componentProperties]]"
                     path$="[[path]]"
                     id$="[[item.id]]"
+                    usercontent$="[[item.usercontent]]"
                     innercomponents$="[[item.innercomponents]]"
                     in-content-mode$="[[inContentMode]]"
                     in-edit-mode$="[[inEditMode]]"></row-adder>
@@ -185,6 +186,8 @@
                         rawcomponents[keys].elName = rawcomponents[keys].name;
                         rawcomponents[keys].componentProperties = rawcomponents[keys].properties;
                         rawcomponents[keys].innercomponents = rawcomponents[keys].components || {};
+                        rawcomponents[keys].usercontent = rawcomponents[keys].usercontent;
+
                         data.push(rawcomponents[keys]);
                     }
 
