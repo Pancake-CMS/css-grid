@@ -42,13 +42,13 @@
             <template is="dom-repeat" items="[[components]]">
                 <row-adder
                     el-name$="[[item.elName]]"
-                    component-properties$="[[item.componentProperties]]"
+                    component-properties="[[item.componentProperties]]"
                     path$="[[path]]"
                     id$="[[item.id]]"
-                    usercontent$="[[item.usercontent]]"
-                    innercomponents$="[[item.innercomponents]]"
-                    in-content-mode$="[[inContentMode]]"
-                    in-edit-mode$="[[inEditMode]]"></row-adder>
+                    usercontent="[[item.usercontent]]"
+                    innercomponents="[[item.innercomponents]]"
+                    in-content-mode="[[inContentMode]]"
+                    in-edit-mode="[[inEditMode]]"></row-adder>
             </template>
         </div>
 
@@ -183,6 +183,9 @@
                     var data = [],
                         i = 0;
                     for(var keys in rawcomponents) {
+                        if(!rawcomponents[keys].name) {
+                            continue;
+                        }
                         rawcomponents[keys].id = keys;
                         rawcomponents[keys].elName = rawcomponents[keys].name;
                         rawcomponents[keys].componentProperties = rawcomponents[keys].properties;
